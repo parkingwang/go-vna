@@ -77,6 +77,6 @@ type DetectedResult struct {
 - `VNumTypeAviation`[**AVIATION**]    : 民航车牌
 - `VNumTypeConsulate`[**CONSULATE**]   : 领馆政府车牌
 - `VNumTypeOldEmbassy`[**OLD_EMBASSY**]  : 使馆车牌
-- `VNumTypeEmbassy`[**EMBASSY`**]     : 新式使馆车牌
+- `VNumTypeEmbassy`[**EMBASSY**]     : 新式使馆车牌
 - `VNumTypePLA2012`[**PLA2012**]     : 军队车辆
 - `VNumTypeUnknown`[**UNKNOWN**]     : 未知车牌
