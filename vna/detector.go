@@ -3,7 +3,6 @@ package vna
 import (
 	"errors"
 	"fmt"
-	"path/filepath"
 	"strings"
 )
 
@@ -27,28 +26,9 @@ func (dr DetectedResult) String() string {
 		dr.ProvinceKey, dr.ProvinceName, dr.CityKey, dr.CityName)
 }
 
-////
+///
 
-var (
-	gProvinceNames = make(map[string]string)
-	gCitiesNames   = make(map[string]string)
-)
-
-// 初始化检测环境
-func InitDetectorEnv(base string) {
-	loadProvinces(base,
-		"/prov-army.csv",
-		"prov-civil.csv",
-		"prov-spec.csv")
-
-	loadCities(base,
-		"city-civil.csv",
-		"city-army.csv",
-		"city-embassy.csv",
-		"city-spec.csv",
-		"city-wj.csv")
-}
-
+// 指定车牌号码，返回归属地分析结果
 func DetectNumber(number string) (DetectedResult, error) {
 	numType, numTypeName := DetectNumberType(number)
 
@@ -155,30 +135,4 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 	cityName = gCitiesNames[cityKey]
 
 	return
-}
-
-func loadProvinces(base string, names ...string) {
-	for _, f := range names {
-		fmt.Println("Loading provinces: ", f)
-		loadFieldsToMap(filepath.Join(base, f), gProvinceNames)
-	}
-}
-
-func loadCities(base string, names ...string) {
-	for _, f := range names {
-		fmt.Println("Loading cities: ", f)
-		loadFieldsToMap(filepath.Join(base, f), gCitiesNames)
-	}
-}
-
-func loadFieldsToMap(name string, target map[string]string) {
-	// load provinces
-	fields, err := ReadFields(name)
-	if nil != err {
-		panic(err)
-	}
-
-	for _, field := range fields {
-		target[field.Short] = field.Name
-	}
 }
