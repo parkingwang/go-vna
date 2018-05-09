@@ -10,24 +10,6 @@ import (
 // Author: 陈永佳 chenyongjia@parkingwang.com, yoojiachen@gmail.com
 //
 
-type DetectedResult struct {
-	Number         string // 车牌号码
-	NumberType     int    // 车牌号码类型
-	NumberTypeName string // 车牌号码类型名称
-	ProvinceName   string // 所属省份全称
-	ProvinceKey    string // 所属省份查询Key
-	CityName       string // 所属城市全称
-	CityKey        string // 所属城市查询Key
-}
-
-func (dr DetectedResult) String() string {
-	return fmt.Sprintf(`number: %s, type: %d, type_name: %s, province: %s, province_name: %s, city: %s, city_name:%s`,
-		dr.Number, dr.NumberType, dr.NumberTypeName,
-		dr.ProvinceKey, dr.ProvinceName, dr.CityKey, dr.CityName)
-}
-
-///
-
 // 指定车牌号码，返回归属地分析结果
 func DetectNumber(number string) (DetectedResult, error) {
 	numType, numTypeName := DetectNumberType(number)
@@ -54,6 +36,7 @@ func DetectNumberType(numberStr string) (int, string) {
 	numberStr = strings.ToUpper(numberStr)
 	numberRune := []rune(numberStr)
 	numSize := sizeOf(numberStr)
+
 	if !(7 == numSize || 8 == numSize) {
 		return VNumTypeUnknown, "UNKNOWN"
 	} else if strings.ContainsAny("VZHKEBSLJNGCQ", string(numberRune[:1])) {
@@ -119,7 +102,6 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 		fallthrough
 	case VNumTypeHKMacao:
 		fallthrough
-
 	case VNumTypeNewEnergy:
 		fallthrough
 	case VNumTypeCivil:

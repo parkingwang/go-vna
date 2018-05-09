@@ -11,16 +11,16 @@ import (
 // Author: 陈永佳 chenyongjia@parkingwang.com, yoojiachen@gmail.com
 //
 
-type Fields struct {
-	Short string
-	Name  string
+type KVPair struct {
+	Key   string
+	Value string
 }
 
-func (f Fields) String() string {
-	return fmt.Sprintf("%s : %s", f.Short, f.Name)
+func (f KVPair) String() string {
+	return fmt.Sprintf("%s : %s", f.Key, f.Value)
 }
 
-func ReadFields(name string) ([]Fields, error) {
+func ReadRecords(name string) ([]KVPair, error) {
 	file, err := os.Open(name)
 	defer file.Close()
 
@@ -28,7 +28,7 @@ func ReadFields(name string) ([]Fields, error) {
 		return nil, err
 	}
 
-	out := make([]Fields, 0)
+	output := make([]KVPair, 0)
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -36,9 +36,9 @@ func ReadFields(name string) ([]Fields, error) {
 		if len(txt) > 2 && !strings.HasPrefix(txt, "#") {
 			columns := strings.Split(txt, ",")
 			if 2 == len(columns) {
-				out = append(out, Fields{
-					Short: columns[0],
-					Name:  columns[1],
+				output = append(output, KVPair{
+					Key:   columns[0],
+					Value: columns[1],
 				})
 			}
 		}
@@ -48,5 +48,5 @@ func ReadFields(name string) ([]Fields, error) {
 		return nil, err
 	}
 
-	return out, nil
+	return output, nil
 }

@@ -9,7 +9,6 @@ import (
 // Author: 陈永佳 chenyongjia@parkingwang.com, yoojiachen@gmail.com
 //
 
-
 func starts(s string, v string) bool {
 	return strings.HasPrefix(s, v)
 }
@@ -20,12 +19,4 @@ func ends(s string, v string) bool {
 
 func sizeOf(s string) int {
 	return utf8.RuneCountInString(s)
-}
-
-func err2str(err error) string {
-	if nil == err {
-		return "nil"
-	} else {
-		return err.Error()
-	}
 }

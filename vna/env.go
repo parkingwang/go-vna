@@ -27,7 +27,7 @@ var (
 func InitDetectorEnv(base string) {
 	// 检查data目录是否存在
 	if !fileExists(base) {
-		logger.Println("Data directory [data] not exists, create...")
+		logger.Println("Data directory is not exists, create now.")
 		os.MkdirAll(base, os.ModePerm)
 	}
 
@@ -46,47 +46,51 @@ func InitDetectorEnv(base string) {
 
 func loadProvinces(base string, names ...string) {
 	for _, name := range names {
-		file := filepath.Join(base, name)
-		logger.Println("Loading provinces file: ", file)
-		loadFileToMemory(file, name, gProvinceNames)
+		path := filepath.Join(base, name)
+		logger.Println("Loading provinces file: ", path)
+		downloadIfNotExists(path, name)
+		loadFileToMemory(path, gProvinceNames)
 	}
 }
 
 func loadCities(base string, names ...string) {
 	for _, name := range names {
-		file := filepath.Join(base, name)
-		logger.Println("Loading cities file: ", file)
-		loadFileToMemory(file, name, gCitiesNames)
+		path := filepath.Join(base, name)
+		logger.Println("Loading cities file: ", path)
+		downloadIfNotExists(path, name)
+		loadFileToMemory(path, gCitiesNames)
 	}
 }
 
-func loadFileToMemory(file string, fileName string, target map[string]string) {
-	// 检查文件是否存在
-	if !fileExists(file) {
-		logger.Println("Data file not exist, download from github server. datafile:", fileName)
-		// 如果不存在，从GigHub中下载
-		resp, he := http.Get(fmt.Sprintf("https://raw.githubusercontent.com/parkingwang/go-vna/master/data/%s", fileName))
-		if nil != he {
-			logger.Println("Cannot download data from github server:", fileName)
-			panic(he)
-		}
-
-		f, fe := os.Create(file)
-		if nil != fe {
-			logger.Println("Cannot create data file:", file)
-			panic(fe)
-		}
-
-		io.Copy(f, resp.Body)
-	}
-	// load provinces
-	fields, err := ReadFields(file)
+func loadFileToMemory(file string, destMap map[string]string) {
+	fields, err := ReadRecords(file)
 	if nil != err {
 		panic(err)
 	}
 
 	for _, field := range fields {
-		target[field.Short] = field.Name
+		destMap[field.Key] = field.Value
+	}
+}
+
+func downloadIfNotExists(path string, name string) {
+	// 检查文件是否存在
+	if !fileExists(path) {
+		logger.Println("Data file is not exist, download from github server. file:", name)
+		// 如果不存在，从GigHub中下载
+		resp, he := http.Get(fmt.Sprintf("https://raw.githubusercontent.com/parkingwang/go-vna/master/data/%s", name))
+		if nil != he {
+			logger.Println("Cannot download data file from github server:", name)
+			panic(he)
+		}
+
+		f, fe := os.Create(path)
+		if nil != fe {
+			logger.Println("Cannot create data file:", path)
+			panic(fe)
+		}
+
+		io.Copy(f, resp.Body)
 	}
 }
 
