@@ -59,24 +59,24 @@ type DetectedResult struct {
 
 其中：
 
-- Number： 当前检测的车牌号码；
-- NumberType： 当前检测的车牌号码类型Int值；
-- NumberTypeName： 当前检测的车牌号码名称；
-- ProvinceName： 表示所属省份名称，如果是军队车牌则表示所属军区；
-- ProvinceKey： 所属省份查询Key。使用此Key来检索省份名称；
-- CityName： 表示所属城市名称名称，如果是军队车牌则表示所属部队；
-- CityKey： 所属城市查询Key。使用此Key来检索城市名称；
+- `Number`： 当前检测的车牌号码；
+- `NumberType`： 当前检测的车牌号码类型Int值；
+- `NumberTypeName`： 当前检测的车牌号码名称；
+- `ProvinceName`： 表示所属省份名称，如果是军队车牌则表示所属军区；
+- `ProvinceKey`： 所属省份查询Key。使用此Key来检索省份名称；
+- `CityName`： 表示所属城市名称名称，如果是军队车牌则表示所属部队；
+- `CityKey`： 所属城市查询Key。使用此Key来检索城市名称；
 
 ## 支持检测的号码类型
 
-- VNumTypeCivil       : 普通民用车牌
-- VNumTypeNewEnergy   : 新能源车牌
-- VNumTypePolice      : 警察车牌
-- VNumTypeWJ2012      : 武警2012式车牌
-- VNumTypeHKMacao     : 港澳车辆
-- VNumTypeAviation    : 民航车牌
-- VNumTypeConsulate   : 领馆政府车牌
-- VNumTypeOldEmbassy  : 使馆车牌
-- VNumTypeEmbassy     : 新式使馆车牌
-- VNumTypePLA2012     : 军队车辆
-- VNumTypeUnknown     : 未知车牌
+- `VNumTypeCivil`[**CIVIL**]       : 普通民用车牌
+- `VNumTypeNewEnergy`[**NEW_ENERGY**]   : 新能源车牌
+- `VNumTypePolice`[**POLICE**]      : 警察车牌
+- `VNumTypeWJ2012`[**WJ2012**]      : 武警2012式车牌
+- `VNumTypeHKMacao`[**HK_MACAO**]     : 港澳车辆
+- `VNumTypeAviation`[**AVIATION**]    : 民航车牌
+- `VNumTypeConsulate`[**CONSULATE**]   : 领馆政府车牌
+- `VNumTypeOldEmbassy`[**OLD_EMBASSY**]  : 使馆车牌
+- `VNumTypeEmbassy`[**EMBASSY`**]     : 新式使馆车牌
+- `VNumTypePLA2012`[**PLA2012**]     : 军队车辆
+- `VNumTypeUnknown`[**UNKNOWN**]     : 未知车牌
