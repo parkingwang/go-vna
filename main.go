@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	"parkingwang.com/go-vna/vna"
+	"github.com/go-vna/vna"
 )
 
 func main() {
