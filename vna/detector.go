@@ -16,15 +16,15 @@ type DetectedResult struct {
 	NumberType     int    // 车牌号码类型
 	NumberTypeName string // 车牌号码类型名称
 	ProvinceName   string // 所属省份全称
-	ProvinceShort  string // 所属省份简称
+	ProvinceKey    string // 所属省份查询Key
 	CityName       string // 所属城市全称
-	CityShort      string // 所属城市简称
+	CityKey        string // 所属城市查询Key
 }
 
 func (dr DetectedResult) String() string {
 	return fmt.Sprintf(`number: %s, type: %d, type_name: %s, province: %s, province_name: %s, city: %s, city_name:%s`,
 		dr.Number, dr.NumberType, dr.NumberTypeName,
-		dr.ProvinceShort, dr.ProvinceName, dr.CityShort, dr.CityName)
+		dr.ProvinceKey, dr.ProvinceName, dr.CityKey, dr.CityName)
 }
 
 ////
@@ -63,9 +63,9 @@ func DetectNumber(number string) (DetectedResult, error) {
 		NumberType:     numType,
 		NumberTypeName: numTypeName,
 		ProvinceName:   provinceName,
-		ProvinceShort:  provinceShort,
+		ProvinceKey:    provinceShort,
 		CityName:       cityName,
-		CityShort:      cityShort,
+		CityKey:        cityShort,
 	}, nil
 }
 
@@ -117,7 +117,7 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 		// V字头的二级单位Key需要3位
 		if "V" == provKey {
 			cityKey = string(number[:3])
-		}else{
+		} else {
 			cityKey = string(number[:2])
 		}
 
