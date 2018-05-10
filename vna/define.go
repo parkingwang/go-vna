@@ -23,6 +23,20 @@ const (
 	VNumTypeUnknown    = iota // 未知车牌
 )
 
+const (
+	VNumTypeNameCivil      = "CIVIL"
+	VNumTypeNameNewEnergy  = "NEW_ENERGY"
+	VNumTypeNamePolice     = "POLICE"
+	VNumTypeNameWJ2012     = "WJ2012"
+	VNumTypeNameHKMacao    = "HK_MACAO"
+	VNumTypeNameAviation   = "AVIATION"
+	VNumTypeNameConsulate  = "CONSULATE"
+	VNumTypeNameOldEmbassy = "OLD_EMBASSY"
+	VNumTypeNameEmbassy    = "EMBASSY"
+	VNumTypeNamePLA2012    = "PLA2012"
+	VNumTypeNameUnknown    = "UNKNOWN"
+)
+
 // 检测结果
 type DetectedResult struct {
 	Number         string  // 车牌号码

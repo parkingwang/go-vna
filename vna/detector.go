@@ -43,29 +43,29 @@ func DetectNumber(number string) (DetectedResult, error) {
 func detectNumberType(numberRune []rune, numberStr string) (int, string) {
 	numSize := len(numberRune)
 	if !(7 == numSize || 8 == numSize) {
-		return VNumTypeUnknown, "UNKNOWN"
+		return VNumTypeUnknown, VNumTypeNameUnknown
 	} else if strings.ContainsAny("VZHKEBSLJNGCQ", string(numberRune[:1])) {
-		return VNumTypePLA2012, "PLA2012"
+		return VNumTypePLA2012, VNumTypeNamePLA2012
 	} else if starts(numberStr, "使") {
-		return VNumTypeOldEmbassy, "OLD_EMBASSY"
+		return VNumTypeOldEmbassy, VNumTypeNameOldEmbassy
 	} else if ends(numberStr, "使") {
-		return VNumTypeEmbassy, "EMBASSY"
+		return VNumTypeEmbassy, VNumTypeNameEmbassy
 	} else if ends(numberStr, "领") {
-		return VNumTypeConsulate, "CONSULATE"
+		return VNumTypeConsulate, VNumTypeNameConsulate
 	} else if starts(numberStr, "民航") {
-		return VNumTypeAviation, "AVIATION"
+		return VNumTypeAviation, VNumTypeNameAviation
 	} else if starts(numberStr, "WJ") {
-		return VNumTypeWJ2012, "WJ2012"
+		return VNumTypeWJ2012, VNumTypeNameWJ2012
 	} else if ends(numberStr, "警") {
-		return VNumTypePolice, "POLICE"
+		return VNumTypePolice, VNumTypeNamePolice
 	} else if starts(numberStr, "粤Z") && (ends(numberStr, "港") || ends(numberStr, "澳")) {
-		return VNumTypeHKMacao, "HK_MACAO"
+		return VNumTypeHKMacao, VNumTypeNameHKMacao
 	} else {
 		// 新能源车牌长度为8位
 		if 8 == numSize {
-			return VNumTypeNewEnergy, "NEW_ENERGY"
+			return VNumTypeNewEnergy, VNumTypeNameNewEnergy
 		} else {
-			return VNumTypeCivil, "CIVIL"
+			return VNumTypeCivil, VNumTypeNameCivil
 		}
 	}
 }
