@@ -14,6 +14,8 @@ import (
 // 初始化检测环境
 //
 
+const DataDirName = "data"
+
 var (
 	gProvinceNames = make(map[string]string)
 	gCitiesNames   = make(map[string]string)
@@ -32,22 +34,22 @@ func InitDetectorEnv(base string) {
 	}
 
 	loadProvinces(base,
-		"prov-army.csv",
-		"prov-civil.csv",
-		"prov-spec.csv")
+		"prov-army_v1.csv",
+		"prov-civil_v1.csv",
+		"prov-spec_v1.csv")
 
 	loadCities(base,
-		"city-civil.csv",
-		"city-army.csv",
-		"city-embassy.csv",
-		"city-spec.csv",
-		"city-wj.csv")
+		"city-civil_v1.csv",
+		"city-army_v1.csv",
+		"city-embassy_v1.csv",
+		"city-spec_v1.csv",
+		"city-wj_v1.csv")
 }
 
 func loadProvinces(base string, names ...string) {
 	for _, name := range names {
 		path := filepath.Join(base, name)
-		logger.Println("Loading provinces file: ", path)
+		logger.Println("Loading provinces data file: ", path)
 		downloadIfNotExists(path, name)
 		loadFileToMemory(path, gProvinceNames)
 	}
@@ -56,7 +58,7 @@ func loadProvinces(base string, names ...string) {
 func loadCities(base string, names ...string) {
 	for _, name := range names {
 		path := filepath.Join(base, name)
-		logger.Println("Loading cities file: ", path)
+		logger.Println("Loading cities data file: ", path)
 		downloadIfNotExists(path, name)
 		loadFileToMemory(path, gCitiesNames)
 	}

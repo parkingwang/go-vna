@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	vna.InitDetectorEnv("./data/")
+	vna.InitDetectorEnv(vna.DataDirName)
 
 	fmt.Println(vna.DetectNumber("粤BF49883"))
 	fmt.Println(vna.DetectNumber("粤A12345"))
