@@ -2,7 +2,6 @@ package vna
 
 import (
 	"strings"
-	"unicode/utf8"
 )
 
 //
@@ -15,8 +14,4 @@ func starts(s string, v string) bool {
 
 func ends(s string, v string) bool {
 	return strings.HasSuffix(s, v)
-}
-
-func sizeOf(s string) int {
-	return utf8.RuneCountInString(s)
 }

@@ -12,13 +12,20 @@ import (
 
 // 指定车牌号码，返回归属地分析结果
 func DetectNumber(number string) (DetectedResult, error) {
-	numType, numTypeName := DetectNumberType(number)
+	number = strings.ToUpper(number)
+	numberRune := []rune(number)
+	numType, numTypeName := detectNumberType(numberRune, number)
 
 	if VNumTypeUnknown == numType {
 		return DetectedResult{}, errors.New(fmt.Sprintf("unknown number[%s]", number))
 	}
+	provinceShort, provinceName, cityShort, cityName := detectSpecChars(numType, numberRune)
 
-	provinceShort, provinceName, cityShort, cityName := DetectSpecChars(numType, number)
+	// 统计易错字符
+	var fallRate float32
+	for _, c := range numberRune {
+		fallRate += gFallRateNames[string(c)]
+	}
 
 	return DetectedResult{
 		Number:         number,
@@ -28,15 +35,13 @@ func DetectNumber(number string) (DetectedResult, error) {
 		ProvinceKey:    provinceShort,
 		CityName:       cityName,
 		CityKey:        cityShort,
+		FallRate:       fallRate,
 	}, nil
 }
 
 // 返回车牌号码类型及类型名称
-func DetectNumberType(numberStr string) (int, string) {
-	numberStr = strings.ToUpper(numberStr)
-	numberRune := []rune(numberStr)
-	numSize := sizeOf(numberStr)
-
+func detectNumberType(numberRune []rune, numberStr string) (int, string) {
+	numSize := len(numberRune)
 	if !(7 == numSize || 8 == numSize) {
 		return VNumTypeUnknown, "UNKNOWN"
 	} else if strings.ContainsAny("VZHKEBSLJNGCQ", string(numberRune[:1])) {
@@ -66,8 +71,7 @@ func DetectNumberType(numberStr string) (int, string) {
 }
 
 // 分析车牌号码的省份和城市关键字符
-func DetectSpecChars(numType int, numberS string) (provKey string, provName string, cityKey string, cityName string) {
-	number := []rune(numberS)
+func detectSpecChars(numType int, number []rune) (provKey string, provName string, cityKey string, cityName string) {
 	switch numType {
 	case VNumTypeWJ2012:
 		// 武警： WJ-粤-1234X

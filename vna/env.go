@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 //
@@ -19,6 +20,7 @@ const DataDirName = "data"
 var (
 	gProvinceNames = make(map[string]string)
 	gCitiesNames   = make(map[string]string)
+	gFallRateNames = make(map[string]float32)
 )
 
 var (
@@ -33,20 +35,25 @@ func InitDetectorEnv(base string) {
 		os.MkdirAll(base, os.ModePerm)
 	}
 
-	loadProvinces(base,
+	// 加载或者获取省份/字头数据
+	initProvinces(base,
 		"prov-army_v1.csv",
 		"prov-civil_v1.csv",
 		"prov-spec_v1.csv")
 
-	loadCities(base,
+	// 加载
+	initCities(base,
 		"city-civil_v1.csv",
-		"city-army_v1.csv",
+		"city-army_v2.csv",
 		"city-embassy_v1.csv",
 		"city-spec_v1.csv",
 		"city-wj_v1.csv")
+
+	// 加载易错统计数据
+	initFallRate(base, "fallrate_v1.csv")
 }
 
-func loadProvinces(base string, names ...string) {
+func initProvinces(base string, names ...string) {
 	for _, name := range names {
 		path := filepath.Join(base, name)
 		logger.Println("Loading provinces data file: ", path)
@@ -55,7 +62,7 @@ func loadProvinces(base string, names ...string) {
 	}
 }
 
-func loadCities(base string, names ...string) {
+func initCities(base string, names ...string) {
 	for _, name := range names {
 		path := filepath.Join(base, name)
 		logger.Println("Loading cities data file: ", path)
@@ -64,14 +71,34 @@ func loadCities(base string, names ...string) {
 	}
 }
 
-func loadFileToMemory(file string, destMap map[string]string) {
-	fields, err := ReadRecords(file)
+func initFallRate(base string, name string) {
+	path := filepath.Join(base, name)
+	logger.Println("Loading fall rate data file: ", path)
+
+	downloadIfNotExists(path, name)
+
+	pairs, err := ReadRecords(path)
 	if nil != err {
 		panic(err)
 	}
 
-	for _, field := range fields {
-		destMap[field.Key] = field.Value
+	for _, kv := range pairs {
+		val, err := strconv.ParseFloat(kv.Value, 64)
+		if nil != err {
+			panic(err)
+		}
+		gFallRateNames[kv.Key] = float32(val)
+	}
+}
+
+func loadFileToMemory(path string, targetMap map[string]string) {
+	pairs, err := ReadRecords(path)
+	if nil != err {
+		panic(err)
+	}
+
+	for _, kv := range pairs {
+		targetMap[kv.Key] = kv.Value
 	}
 }
 

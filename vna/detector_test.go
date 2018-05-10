@@ -22,7 +22,7 @@ func TestDetectNumberNewEnergy(t *testing.T) {
 func TestDetectNumberCivil(t *testing.T) {
 	InitDetectorEnv("../" + DataDirName)
 	checkIs(t, "CIVIL", "京A12345", "北京市", "中央国家机关")
-	checkIs(t, "CIVIL", "新B12345", "新疆维吾尔自治区", "昌吉回族自治州、五家渠市")
+	checkIs(t, "CIVIL", "新B12345", "新疆维吾尔自治区", "昌吉回族自治州/五家渠市")
 	checkIs(t, "CIVIL", "粤O00001", "广东省", "省直机关")
 }
 
@@ -67,6 +67,14 @@ func TestDetectNumberEmbassy(t *testing.T) {
 	checkIs(t, "OLD_EMBASSY", "使189001", "大使馆", "巴勒斯坦")
 	checkIs(t, "EMBASSY", "189001使", "大使馆", "巴勒斯坦")
 	checkIs(t, "EMBASSY", "238001使", "大使馆", "土库曼斯坦")
+}
+
+func TestDetectNumberFallRate(t *testing.T) {
+	InitDetectorEnv("../" + DataDirName)
+	dr, _ := DetectNumber("粤BF49883")
+	if dr.FallRateEqualTo(0.9) {
+		t.Error("fall rate not match, was:", dr.FallRate)
+	}
 }
 
 func checkIs(t *testing.T, numType string, number string, province string, city string) {
