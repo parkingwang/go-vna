@@ -72,8 +72,8 @@ func TestDetectNumberEmbassy(t *testing.T) {
 func TestDetectNumberFallRate(t *testing.T) {
 	InitDetectorEnv("../" + DataDirName)
 	dr, _ := DetectNumber("粤BF49883")
-	if dr.FallRateEqualTo(0.9) {
-		t.Error("fall rate not match, was:", dr.FallRate)
+	if dr.ErrorRateEqualTo(0.9) {
+		t.Error("fall rate not match, was:", dr.ErrorRate)
 	}
 }
 

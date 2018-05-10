@@ -22,9 +22,9 @@ func DetectNumber(number string) (DetectedResult, error) {
 	provinceShort, provinceName, cityShort, cityName := detectSpecChars(numType, numberRune)
 
 	// 统计易错字符
-	var fallRate float32
+	var errorRate float32
 	for _, c := range numberRune {
-		fallRate += gFallRateNames[string(c)]
+		errorRate += gErrorRateNames[string(c)]
 	}
 
 	return DetectedResult{
@@ -35,7 +35,7 @@ func DetectNumber(number string) (DetectedResult, error) {
 		ProvinceKey:    provinceShort,
 		CityName:       cityName,
 		CityKey:        cityShort,
-		FallRate:       fallRate,
+		ErrorRate:      errorRate,
 	}, nil
 }
 

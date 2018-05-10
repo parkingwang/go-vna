@@ -32,7 +32,7 @@ type DetectedResult struct {
 	ProvinceKey    string  // 所属省份查询Key
 	CityName       string  // 所属城市全称
 	CityKey        string  // 所属城市查询Key
-	FallRate       float32 // 车牌易错字符统计
+	ErrorRate      float32 // 车牌易错字符统计
 }
 
 func (dr DetectedResult) String() string {
@@ -41,6 +41,6 @@ func (dr DetectedResult) String() string {
 		dr.ProvinceKey, dr.ProvinceName, dr.CityKey, dr.CityName)
 }
 
-func (dr DetectedResult) FallRateEqualTo(fallRate float32) bool {
-	return math.Abs(float64(fallRate-dr.FallRate)) < 0.0000000001
+func (dr DetectedResult) ErrorRateEqualTo(fallRate float32) bool {
+	return math.Abs(float64(fallRate-dr.ErrorRate)) < 0.0000000001
 }

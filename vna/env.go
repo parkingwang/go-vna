@@ -18,9 +18,9 @@ import (
 const DataDirName = "data"
 
 var (
-	gProvinceNames = make(map[string]string)
-	gCitiesNames   = make(map[string]string)
-	gFallRateNames = make(map[string]float32)
+	gProvinceNames  = make(map[string]string)
+	gCitiesNames    = make(map[string]string)
+	gErrorRateNames = make(map[string]float32)
 )
 
 var (
@@ -50,7 +50,7 @@ func InitDetectorEnv(base string) {
 		"city-wj_v1.csv")
 
 	// 加载易错统计数据
-	initFallRate(base, "fallrate_v1.csv")
+	initFallRate(base, "error-rate_v1.csv")
 }
 
 func initProvinces(base string, names ...string) {
@@ -87,7 +87,7 @@ func initFallRate(base string, name string) {
 		if nil != err {
 			panic(err)
 		}
-		gFallRateNames[kv.Key] = float32(val)
+		gErrorRateNames[kv.Key] = float32(val)
 	}
 }
 
