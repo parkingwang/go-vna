@@ -80,3 +80,8 @@ type DetectedResult struct {
 - `VNumTypeEmbassy`[**EMBASSY**]     : 新式使馆车牌
 - `VNumTypePLA2012`[**PLA2012**]     : 军队车辆
 - `VNumTypeUnknown`[**UNKNOWN**]     : 未知车牌
+
+# 中国机动车号牌编码规则
+
+参见博文：
+[中国机动车号牌编码规则](http://yoojia.xyz/2018/05/09/chinese-vehicle-number/)
