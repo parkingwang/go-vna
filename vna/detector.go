@@ -74,16 +74,6 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 		provKey = string(number[2:3])
 		cityKey = string(number[7:8])
 
-	case VNumTypePLA2012:
-		// KA·00001
-		provKey = string(number[:1])
-		// V字头的二级单位Key需要3位
-		if "V" == provKey {
-			cityKey = string(number[:3])
-		} else {
-			cityKey = string(number[:2])
-		}
-
 	case VNumTypeEmbassy:
 		provKey = "使"
 		cityKey = string(number[:3])
@@ -96,6 +86,8 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 		provKey = "航"
 		cityKey = "航"
 
+	case VNumTypePLA2012:
+		fallthrough
 	case VNumTypePolice:
 		fallthrough
 	case VNumTypeConsulate:
@@ -107,8 +99,8 @@ func DetectSpecChars(numType int, numberS string) (provKey string, provName stri
 	case VNumTypeCivil:
 		fallthrough
 	default:
-		// 第一位：省份
-		// 第二位：城市
+		// 第一位：省份/军区
+		// 第二位：城市/部队
 		provKey = string(number[:1])
 		cityKey = string(number[:2])
 	}
