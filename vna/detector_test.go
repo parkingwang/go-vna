@@ -69,14 +69,6 @@ func TestDetectNumberEmbassy(t *testing.T) {
 	checkIs(t, "EMBASSY", "238001使", "大使馆", "土库曼斯坦")
 }
 
-func TestDetectNumberFallRate(t *testing.T) {
-	InitDetectorEnv("../" + DataDirName)
-	dr, _ := DetectNumber("粤BF49883")
-	if dr.ErrorRateEqualTo(0.9) {
-		t.Error("fall rate not match, was:", dr.ErrorRate)
-	}
-}
-
 func checkIs(t *testing.T, numType string, number string, province string, city string) {
 	dr, err := DetectNumber(number)
 	if nil != err {
