@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 )
 
 //
@@ -18,9 +17,8 @@ import (
 const DataDirName = "data"
 
 var (
-	gProvinceNames  = make(map[string]string)
-	gCitiesNames    = make(map[string]string)
-	gErrorRateNames = make(map[string]float32)
+	gProvinceNames = make(map[string]string)
+	gCitiesNames   = make(map[string]string)
 )
 
 var (
@@ -48,9 +46,6 @@ func InitDetectorEnv(base string) {
 		"city-embassy_v1.csv",
 		"city-spec_v1.csv",
 		"city-wj_v1.csv")
-
-	// 加载易错统计数据
-	initFallRate(base, "error-rate_v1.csv")
 }
 
 func initProvinces(base string, names ...string) {
@@ -68,26 +63,6 @@ func initCities(base string, names ...string) {
 		logger.Println("Loading cities data file: ", path)
 		downloadIfNotExists(path, name)
 		loadFileToMemory(path, gCitiesNames)
-	}
-}
-
-func initFallRate(base string, name string) {
-	path := filepath.Join(base, name)
-	logger.Println("Loading fall rate data file: ", path)
-
-	downloadIfNotExists(path, name)
-
-	pairs, err := ReadRecords(path)
-	if nil != err {
-		panic(err)
-	}
-
-	for _, kv := range pairs {
-		val, err := strconv.ParseFloat(kv.Value, 64)
-		if nil != err {
-			panic(err)
-		}
-		gErrorRateNames[kv.Key] = float32(val)
 	}
 }
 
