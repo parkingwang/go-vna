@@ -20,7 +20,7 @@ const (
 	VNumTypeEmbassy       = iota // 新式使馆车牌
 	VNumTypePLA2012       = iota // 军队车辆
 	VNumTypeUnknown       = iota // 未知车牌
-	VNumTypeConsulate2017 = iota // 2017式领事馆车牌
+	VNumTypeConsulate2018 = iota // 2018式领事馆车牌
 )
 
 const (
@@ -31,7 +31,7 @@ const (
 	VNumTypeNameHKMacao    = "HK_MACAO"
 	VNumTypeNameAviation   = "AVIATION"
 	VNumTypeNameCON2007    = "CONSULATE"
-	VNumTypeNameCON2017    = "CONSULATE2017"
+	VNumTypeNameCON2018    = "CONSULATE2018"
 	VNumTypeNameOldEmbassy = "OLD_EMBASSY"
 	VNumTypeNameEmbassy    = "EMBASSY"
 	VNumTypeNamePLA2012    = "PLA2012"

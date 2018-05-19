@@ -46,7 +46,7 @@ func detectNumberType(numberRune []rune, numberStr string) (int, string) {
 		return VNumTypeEmbassy, VNumTypeNameEmbassy
 	} else if ends(numberStr, "领") {
 		if unicode.IsNumber(numberRune[1]) {
-			return VNumTypeConsulate2017, VNumTypeNameCON2017
+			return VNumTypeConsulate2018, VNumTypeNameCON2018
 		} else {
 			return VNumTypeConsulate2007, VNumTypeNameCON2007
 		}
@@ -88,7 +88,7 @@ func detectSpecChars(numType int, number []rune) (provKey string, provName strin
 		provKey = "航"
 		cityKey = "航"
 
-	case VNumTypeConsulate2017:
+	case VNumTypeConsulate2018:
 		// 2017式领事馆车牌： 粤17601领
 		provKey = string(number[:1])
 		cityKey = string(number[1:4])
