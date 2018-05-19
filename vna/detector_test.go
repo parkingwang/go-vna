@@ -53,6 +53,7 @@ func TestDetectNumberAviation(t *testing.T) {
 func TestDetectNumberConsulate(t *testing.T) {
 	InitDetectorEnv("../" + DataDirName)
 	checkIs(t, "CONSULATE", "粤A1006领", "广东省", "广州市")
+	checkIs(t, "CONSULATE2017", "粤17601领", "广东省", "墨西哥")
 }
 
 func TestDetectNumberPLA2012(t *testing.T) {

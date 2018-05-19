@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"unicode"
 )
 
 //
@@ -44,7 +45,11 @@ func detectNumberType(numberRune []rune, numberStr string) (int, string) {
 	} else if ends(numberStr, "使") {
 		return VNumTypeEmbassy, VNumTypeNameEmbassy
 	} else if ends(numberStr, "领") {
-		return VNumTypeConsulate, VNumTypeNameConsulate
+		if unicode.IsNumber(numberRune[1]) {
+			return VNumTypeConsulate2017, VNumTypeNameCON2017
+		} else {
+			return VNumTypeConsulate2007, VNumTypeNameCON2007
+		}
 	} else if starts(numberStr, "民航") {
 		return VNumTypeAviation, VNumTypeNameAviation
 	} else if starts(numberStr, "WJ") {
@@ -83,12 +88,18 @@ func detectSpecChars(numType int, number []rune) (provKey string, provName strin
 		provKey = "航"
 		cityKey = "航"
 
+	case VNumTypeConsulate2017:
+		// 2017式领事馆车牌： 粤17601领
+		provKey = string(number[:1])
+		cityKey = string(number[1:4])
+
+	case VNumTypeConsulate2007:
+		fallthrough
 	case VNumTypePLA2012:
 		fallthrough
 	case VNumTypePolice:
 		fallthrough
-	case VNumTypeConsulate:
-		fallthrough
+
 	case VNumTypeHKMacao:
 		fallthrough
 	case VNumTypeNewEnergy:

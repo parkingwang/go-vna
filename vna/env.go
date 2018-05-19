@@ -43,7 +43,7 @@ func InitDetectorEnv(base string) {
 	initCities(base,
 		"city-civil_v1.csv",
 		"city-army_v2.csv",
-		"city-embassy_v1.csv",
+		"city-contries_v1.csv",
 		"city-spec_v1.csv",
 		"city-wj_v1.csv")
 }

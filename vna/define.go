@@ -9,17 +9,18 @@ import (
 //
 
 const (
-	VNumTypeCivil      = iota // 普通民用车牌
-	VNumTypeNewEnergy  = iota // 新能源车牌
-	VNumTypePolice     = iota // 警察车牌
-	VNumTypeWJ2012     = iota // 武警2012式车牌
-	VNumTypeHKMacao    = iota // 港澳车辆
-	VNumTypeAviation   = iota // 民航车牌
-	VNumTypeConsulate  = iota // 领馆政府车牌
-	VNumTypeOldEmbassy = iota // 使馆车牌
-	VNumTypeEmbassy    = iota // 新式使馆车牌
-	VNumTypePLA2012    = iota // 军队车辆
-	VNumTypeUnknown    = iota // 未知车牌
+	VNumTypeCivil         = iota // 普通民用车牌
+	VNumTypeNewEnergy     = iota // 新能源车牌
+	VNumTypePolice        = iota // 警察车牌
+	VNumTypeWJ2012        = iota // 武警2012式车牌
+	VNumTypeHKMacao       = iota // 港澳车辆
+	VNumTypeAviation      = iota // 民航车牌
+	VNumTypeConsulate2007 = iota // 领事馆政府车牌
+	VNumTypeOldEmbassy    = iota // 使馆车牌
+	VNumTypeEmbassy       = iota // 新式使馆车牌
+	VNumTypePLA2012       = iota // 军队车辆
+	VNumTypeUnknown       = iota // 未知车牌
+	VNumTypeConsulate2017 = iota // 2017式领事馆车牌
 )
 
 const (
@@ -29,7 +30,8 @@ const (
 	VNumTypeNameWJ2012     = "WJ2012"
 	VNumTypeNameHKMacao    = "HK_MACAO"
 	VNumTypeNameAviation   = "AVIATION"
-	VNumTypeNameConsulate  = "CONSULATE"
+	VNumTypeNameCON2007    = "CONSULATE"
+	VNumTypeNameCON2017    = "CONSULATE2017"
 	VNumTypeNameOldEmbassy = "OLD_EMBASSY"
 	VNumTypeNameEmbassy    = "EMBASSY"
 	VNumTypeNamePLA2012    = "PLA2012"
